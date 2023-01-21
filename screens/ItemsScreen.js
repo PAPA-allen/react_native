@@ -118,7 +118,7 @@ export const ItemsScreen = ({ route }) => {
             ))}
           </View>
         )}
-        <View className="space-y-2 mt-4 bg-gray-400 rounded-lg px-2 py-2">
+        <View className="space-y-2 mt-4 bg-gray-400 rounded-lg px-4 py-2">
           {data?.phone && (
             <View className="items-center flex-row space-x-6">
               <Feather name="phone" size={24} color="black" />
@@ -137,6 +137,11 @@ export const ItemsScreen = ({ route }) => {
               <Text className="text-lg">{data?.address}</Text>
             </View>
           )}
+          <View className="mt-4 px-4 py-4 rounded-lg bg-blue-300 items-center justify-center mb-12">
+            <Text className="text-3xl font-semibold uppercase tracking-wider text-gray-300">
+              Order Now
+            </Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
