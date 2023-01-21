@@ -22,6 +22,10 @@ export const Discover = () => {
   const [type, setType] = useState("restaurants");
   const [isLoading, setIsLoading] = useState(false);
   const [mainData, setMainData] = useState([]);
+  const [bl_lat, setBl_lat] = useState(null);
+  const [bl_lng, setBl_lng] = useState(null);
+  const [tr_lat, setTr_lat] = useState(null);
+  const [tr_lng, setTr_lng] = useState(null);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -29,13 +33,13 @@ export const Discover = () => {
   }, []);
   useEffect(() => {
     setIsLoading(true);
-    getPlacesData().then((data) => {
+    getPlacesData(bl_lat, bl_lng, tr_lat, tr_lng, type).then((data) => {
       setMainData(data);
       setInterval(() => {
         setIsLoading(false);
       }, 2000);
     });
-  }, []);
+  }, [bl_lat, bl_lng, tr_lat, tr_lng, type]);
   return (
     <SafeAreaView className="flex-1 bg-white relative">
       <View className="flex-row items-center justify-between px-6 mt-3">
@@ -58,6 +62,10 @@ export const Discover = () => {
           onPress={(data, details = null) => {
             // 'details' is provided when fetchDetails = true
             console.log(details?.geometry?.viewport);
+            setBl_lat(details?.geometry?.viewport?.southwest?.lat);
+            setBl_lng(details?.geometry?.viewport?.southwest?.lng);
+            setTr_lat(details?.geometry?.viewport?.northeast?.lat);
+            setTr_lng(details?.geometry?.viewport?.northeast?.lng);
           }}
           query={{
             key: "AIzaSyD7yspq9DaNDRhK3CHy2J9ijm7LgU3Wrnc",
@@ -73,21 +81,21 @@ export const Discover = () => {
         <ScrollView>
           <View className="flex-row p-2 items-center justify-between px-8 mt-8 space-x-4">
             <MenuContainer
-              key={"Hotel"}
+              key={"hotels"}
               title="Hotels"
               imageSrc={Hotel}
               type={type}
               setType={setType}
             />
             <MenuContainer
-              key={"Attraction"}
-              title="Attraction"
+              key={"attractions"}
+              title="Attractions"
               imageSrc={Attraction}
               type={type}
               setType={setType}
             />
             <MenuContainer
-              key={"Restaurant"}
+              key={"restaurants"}
               title="Restaurant"
               imageSrc={Restaurant}
               type={type}
