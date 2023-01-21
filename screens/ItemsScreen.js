@@ -9,6 +9,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import React, { useLayoutEffect } from "react";
 
@@ -70,6 +73,70 @@ export const ItemsScreen = ({ route }) => {
               {data?.location_string}
             </Text>
           </View>
+        </View>
+        <View className="mt-4 flex-row items-center justify-between">
+          {data?.rating && (
+            <View className="flex-row items-center space-x-2">
+              <View className="w-12 h-12 rounded-2xl bg-blue-300 items-center justify-center shadow-md">
+                <Feather name="star" size={24} color="black" />
+              </View>
+              <View>
+                <Text className="text-gray-300">{data?.rating}</Text>
+                <Text className="text-gray-300">Ratings</Text>
+              </View>
+              <View className="w-12 h-12 rounded-2xl bg-blue-300 items-center justify-center shadow-md">
+                <FontAwesome5 name="comment-dollar" size={24} color="black" />
+              </View>
+              <View>
+                <Text className="text-gray-300">{data?.price_level}</Text>
+                <Text className="text-gray-300">Price Level</Text>
+              </View>
+              <View className="w-12 h-12 rounded-2xl bg-blue-300 items-center justify-center shadow-md">
+                <FontAwesome name="map-signs" size={24} color="black" />
+              </View>
+              <View>
+                <Text className="text-gray-300">{data?.bearing}</Text>
+                <Text className="text-gray-300">Bearing</Text>
+              </View>
+            </View>
+          )}
+        </View>
+        {data?.description && (
+          <Text className="mt-4 tracking-wide text-[16px] font-semibold text-gray-500">
+            {data?.description}
+          </Text>
+        )}
+        {data?.cuisine && (
+          <View className="flex-row gap-2 items-center justify-start flex-wrap mt-2 ">
+            {data?.cuisine.map((n) => (
+              <TouchableOpacity
+                key={n.key}
+                className="px-2 py-2 rounded-full bg-emerald-200"
+              >
+                <Text>{n.name}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+        <View className="space-y-2 mt-4 bg-gray-400 rounded-lg px-2 py-2">
+          {data?.phone && (
+            <View className="items-center flex-row space-x-6">
+              <Feather name="phone" size={24} color="black" />
+              <Text className="text-lg">{data?.phone}</Text>
+            </View>
+          )}
+          {data?.email && (
+            <View className="items-center flex-row space-x-6">
+              <MaterialIcons name="email" size={24} color="black" />
+              <Text className="text-lg">{data?.email}</Text>
+            </View>
+          )}
+          {data?.address && (
+            <View className="items-center flex-row space-x-6">
+              <Entypo name="address" size={24} color="black" />
+              <Text className="text-lg">{data?.address}</Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
